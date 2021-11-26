@@ -9,7 +9,8 @@ import UIKit
 
 // 14. Import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController
+{
     
     //Initial BackgroundColor
     let initialBackgroundColor: UIColor = #colorLiteral(red: 0.2260648608, green: 0.8779802918, blue: 0.5831124783, alpha: 1)
@@ -31,21 +32,15 @@ class ViewController: UIViewController {
     
     var magicHatLabel: UILabel!
     
-    var hapticFeedback: UINotificationFeedbackGenerator()
-    
-    
-    
-   
-    // STEP 15 - Create Audio Player Property
-    
-    
+    var hapticFeedback = UINotificationFeedbackGenerator()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //set backgroundColor for the main view
         view.backgroundColor = initialBackgroundColor
         
-        // STEP 7 - Add shouldSetupMagicEightBall()
+        SetupMagicEightBall()
         
         
         //  STEP 12 - Add tha hat to the scene
@@ -53,21 +48,40 @@ class ViewController: UIViewController {
         
     }
     
-    func SetupMagicEightBall() {
-        
+    func SetupMagicEightBall()
+    {
         let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: 320, height: 320))
         magic8BallView = UIView(frame: frame)
+        magic8BallView.backgroundColor = .black
+        magic8BallView.layer.cornerRadius = frame.height/2
+        view.addSubview(magic8BallView)
         
-        // Create constraints after Magic 8 Ball is added to the view
+        magic8BallView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        magic8BallView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50).isActive = true
+        magic8BallView.widthAnchor.constraint(equalToConstant: magic8BallView.frame.width).isActive = true
+        magic8BallView.heightAnchor.constraint(equalToConstant: magic8BallView.frame.height).isActive = true
+        
+        magic8BallView.translatesAutoresizingMaskIntoConstraints = false
         
         
         // STEP 9 - Add shouldSetupMagicEightBallSubview() On The Next Line
         
     }
-    
-    //MARK: STEP 8 - Should setup Magic 8 Ball's Subview
-    func shouldSetupMagicEightBallSubview() {
+
+    func SetupMagicEightBallSubview()
+    {
+        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: 225, height: 225))
+        magic8BallSubView = UIView(frame: frame)
+        magic8BallSubView.backgroundColor = .black
+        magic8BallSubView.layer.cornerRadius = frame.height/2
+        magic8BallView.addSubview(magic8BallSubView)
         
+        magic8BallSubView.centerXAnchor.constraint(equalTo: magic8BallView.centerXAnchor).isActive = true
+        magic8BallSubView.centerYAnchor.constraint(equalTo: magic8BallView.centerYAnchor, constant: 50).isActive = true
+        magic8BallSubView.widthAnchor.constraint(equalToConstant: magic8BallSubView.frame.width).isActive = true
+        magic8BallSubView.heightAnchor.constraint(equalToConstant: magic8BallSubView.frame.height).isActive = true
+        
+        magic8BallSubView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     //MARK: STEP 9 - Should setup Magic 8 Ball's Text Label
