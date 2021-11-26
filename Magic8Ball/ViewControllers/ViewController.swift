@@ -1,0 +1,92 @@
+//
+//  ViewController.swift
+//  Magic8Ball
+//
+//  Created by Yasser Farahi.
+//
+
+import UIKit
+
+// 14. Import AVFoundation
+
+class ViewController: UIViewController {
+    
+    //Initial BackgroundColor
+    let initialBackgroundColor: UIColor = #colorLiteral(red: 0.2260648608, green: 0.8779802918, blue: 0.5831124783, alpha: 1)
+    
+    //The magician hat
+    let magicianHat: String = "🎩"
+    
+    //Magic 8 Ball Answers
+    let magicAnswers: [String] = ["Definitely Yes 😎", "Definitely Not 😔", "Ask Again Later 🤓", "I Don't Know 🤪", "Yes 😊", "No ☹️", "Would Be Great 🤩", "Bad Idea 🙄", "Absolutely 😍"]
+    
+    //BackgroundColors
+    let backgroundColorsCollection: [UIColor] = [#colorLiteral(red: 0.9944964061, green: 0.7785405008, blue: 0.09869512859, alpha: 1), #colorLiteral(red: 0.2581120729, green: 0.7850868106, blue: 0.9436420202, alpha: 1), #colorLiteral(red: 0.6306838754, green: 0.44416107, blue: 1, alpha: 1), #colorLiteral(red: 0.978488028, green: 0.3134756386, blue: 0.430555582, alpha: 1), #colorLiteral(red: 0.2905532709, green: 0.4218296332, blue: 0.9944964061, alpha: 1), #colorLiteral(red: 0.8627327085, green: 0.2279217487, blue: 0.7974209407, alpha: 1),#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1),#colorLiteral(red: 0.9944964061, green: 0, blue: 0.1864793708, alpha: 1),#colorLiteral(red: 0.6107715894, green: 0.1969041851, blue: 0.08490805093, alpha: 1),#colorLiteral(red: 0.3491192989, green: 0, blue: 0.5574806788, alpha: 1)]
+    
+    var magic8BallView: UIView!
+
+    var magic8BallSubView: UIView!
+    
+    var magicAnswerLabel: UILabel!
+    
+    var magicHatLabel: UILabel!
+    
+    var hapticFeedback: UINotificationFeedbackGenerator()
+    
+    
+    
+   
+    // STEP 15 - Create Audio Player Property
+    
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //set backgroundColor for the main view
+        view.backgroundColor = initialBackgroundColor
+        
+        // STEP 7 - Add shouldSetupMagicEightBall()
+        
+        
+        //  STEP 12 - Add tha hat to the scene
+        
+        
+    }
+    
+    func SetupMagicEightBall() {
+        
+        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: 320, height: 320))
+        magic8BallView = UIView(frame: frame)
+        
+        // Create constraints after Magic 8 Ball is added to the view
+        
+        
+        // STEP 9 - Add shouldSetupMagicEightBallSubview() On The Next Line
+        
+    }
+    
+    //MARK: STEP 8 - Should setup Magic 8 Ball's Subview
+    func shouldSetupMagicEightBallSubview() {
+        
+    }
+    
+    //MARK: STEP 9 - Should setup Magic 8 Ball's Text Label
+    func shouldSetupMagicEightBallTextLabel() {
+        
+    }
+    
+    //MARK: STEP 11 - Should setup Add The Hat To The Scene
+    func shouldAddTheHat() {
+        
+    }
+    
+    //MARK:  STEP 14 - Detect Device Motion
+    
+    
+    //MARK:  STEP 16 - Should Setup Audio Player
+    func shouldSetupAudioPlayer() {
+        
+    }
+    
+}
+
