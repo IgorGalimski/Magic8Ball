@@ -6,23 +6,17 @@
 //
 
 import UIKit
-
-// 14. Import AVFoundation
+import AVFoundation
 
 class ViewController: UIViewController
 {
-    
-    //Initial BackgroundColor
     let initialBackgroundColor: UIColor = #colorLiteral(red: 0.2260648608, green: 0.8779802918, blue: 0.5831124783, alpha: 1)
-    
-    //The magician hat
+
     let magicianHat: String = "🎩"
     
-    //Magic 8 Ball Answers
     let magicAnswers: [String] = ["Definitely Yes 😎", "Definitely Not 😔", "Ask Again Later 🤓", "I Don't Know 🤪", "Yes 😊", "No ☹️", "Would Be Great 🤩", "Bad Idea 🙄", "Absolutely 😍"]
     
-    //BackgroundColors
-    let backgroundColorsCollection: [UIColor] = [#colorLiteral(red: 0.9944964061, green: 0.7785405008, blue: 0.09869512859, alpha: 1), #colorLiteral(red: 0.2581120729, green: 0.7850868106, blue: 0.9436420202, alpha: 1), #colorLiteral(red: 0.6306838754, green: 0.44416107, blue: 1, alpha: 1), #colorLiteral(red: 0.978488028, green: 0.3134756386, blue: 0.430555582, alpha: 1), #colorLiteral(red: 0.2905532709, green: 0.4218296332, blue: 0.9944964061, alpha: 1), #colorLiteral(red: 0.8627327085, green: 0.2279217487, blue: 0.7974209407, alpha: 1),#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1),#colorLiteral(red: 0.9944964061, green: 0, blue: 0.1864793708, alpha: 1),#colorLiteral(red: 0.6107715894, green: 0.1969041851, blue: 0.08490805093, alpha: 1),#colorLiteral(red: 0.3491192989, green: 0, blue: 0.5574806788, alpha: 1)]
+    let backgroundColorsCollection: [UIColor] = [#colorLiteral(red: 0.9944964061, green: 0.7785405008, blue: 0.09869512859, alpha: 1), #colorLiteral(red: 0.2581120729, green: 0.7850868106, blue: 0.9436420202, alpha: 1), #colorLiteral(red: 0.6306838754, green: 0.44416107, blue: 1, alpha: 1), #colorLiteral(red: 0.978488028, green: 0.3134756386, blue: 0.430555582, alpha: 1), #colorLiteral(red: 0.2905532709, green: 0.4218296332, blue: 0.9944964061, alpha: 1), #colorLiteral(red: 0.8627327085, green: 0.2279217487, blue: 0.7974209407, alpha: 1)]
     
     var magic8BallView: UIView!
 
@@ -33,19 +27,18 @@ class ViewController: UIViewController
     var magicHatLabel: UILabel!
     
     var hapticFeedback = UINotificationFeedbackGenerator()
+    
+    var animationStarted: Bool = false
+    
+    var player: AVAudioPlayer?
 
-
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        //set backgroundColor for the main view
+
         view.backgroundColor = initialBackgroundColor
         
         SetupMagicEightBall()
-        
-        
-        //  STEP 12 - Add tha hat to the scene
-        
-        
     }
     
     func SetupMagicEightBall()
@@ -121,13 +114,82 @@ class ViewController: UIViewController
         magicHatLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    //MARK:  STEP 14 - Detect Device Motion
-    
-    
-    //MARK:  STEP 16 - Should Setup Audio Player
-    func shouldSetupAudioPlayer() {
-        
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?)
+    {
+        if !animationStarted
+        {
+            animationStarted = true
+            
+            SetupAudioPlayer()
+            
+            UIView.animate(withDuration: 2.0, delay: .zero, usingSpringWithDamping: 10, initialSpringVelocity: 1.0, options: .curveEaseInOut)
+            {
+                
+                self.view.backgroundColor = self.backgroundColorsCollection.shuffled().first
+                
+                self.hapticFeedback.notificationOccurred(.error)
+                
+                self.magicHatLabel.transform = CGAffineTransform(translationX: .zero, y: 160)
+                
+                self.magic8BallSubView.transform = CGAffineTransform(rotationAngle: .pi)
+                
+                self.magic8BallSubView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+                
+                self.magic8BallView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                
+                
+            } completion: {[weak self] success in
+                
+                self?.magicAnswerLabel.font = UIFont(name: "Helvetica-Bold", size: 30)
+                
+                self?.magicAnswerLabel.text = self?.magicAnswers.shuffled().first
+                
+                self?.hapticFeedback.notificationOccurred(.error)
+                
+                if success
+                {
+                    
+                    UIView.animate(withDuration: 3.5, delay: .zero, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut)
+                    {
+                        
+                        self?.view.backgroundColor = self?.initialBackgroundColor
+                        
+                        self?.magicHatLabel.transform = CGAffineTransform(translationX: .zero, y: .zero)
+                        
+                        self?.magic8BallSubView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+                        
+                        self?.magic8BallView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        
+                        self?.magic8BallSubView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        
+                        
+                    } completion: { [weak self] _ in
+                        
+                        self?.animationStarted = false
+                        
+                        if self?.player != nil { self?.player = nil }}}}
+        }
     }
     
+    func SetupAudioPlayer()
+    {
+        guard let fileUrl = Bundle.main.url(forResource: "8ballSound", withExtension: "wav") else
+        {
+            return
+        }
+        
+        do
+        {
+            player = try AVAudioPlayer(contentsOf: fileUrl)
+        
+            player?.play()
+            
+            player?.volume = 0.5
+            
+        } catch let error
+        {
+            print(error)
+        }
+    }
 }
 
