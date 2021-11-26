@@ -64,34 +64,61 @@ class ViewController: UIViewController
         magic8BallView.translatesAutoresizingMaskIntoConstraints = false
         
         
-        // STEP 9 - Add shouldSetupMagicEightBallSubview() On The Next Line
-        
+        SetupMagicEightBallSubview()
     }
 
     func SetupMagicEightBallSubview()
     {
         let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: 225, height: 225))
         magic8BallSubView = UIView(frame: frame)
-        magic8BallSubView.backgroundColor = .black
+        magic8BallSubView.backgroundColor = .white
         magic8BallSubView.layer.cornerRadius = frame.height/2
         magic8BallView.addSubview(magic8BallSubView)
         
         magic8BallSubView.centerXAnchor.constraint(equalTo: magic8BallView.centerXAnchor).isActive = true
-        magic8BallSubView.centerYAnchor.constraint(equalTo: magic8BallView.centerYAnchor, constant: 50).isActive = true
+        magic8BallSubView.centerYAnchor.constraint(equalTo: magic8BallView.centerYAnchor).isActive = true
         magic8BallSubView.widthAnchor.constraint(equalToConstant: magic8BallSubView.frame.width).isActive = true
         magic8BallSubView.heightAnchor.constraint(equalToConstant: magic8BallSubView.frame.height).isActive = true
         
         magic8BallSubView.translatesAutoresizingMaskIntoConstraints = false
+        
+        SetupMagicEightBallTextLabel()
     }
     
-    //MARK: STEP 9 - Should setup Magic 8 Ball's Text Label
-    func shouldSetupMagicEightBallTextLabel() {
+    func SetupMagicEightBallTextLabel()
+    {
+        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: 215, height: 100))
+        magicAnswerLabel = UILabel(frame: frame)
+        magicAnswerLabel.text = "Ask a question. Shake the phone to get the answer"
+        magicAnswerLabel.numberOfLines = .zero
+        magicAnswerLabel.textColor = .black
+        magicAnswerLabel.textAlignment = .center
+        magicAnswerLabel.font = UIFont(name: "Helvetica-Bold", size: 20)
+        magic8BallSubView.addSubview(magicAnswerLabel)
         
+        magicAnswerLabel.centerXAnchor.constraint(equalTo: magic8BallSubView.centerXAnchor).isActive = true
+        magicAnswerLabel.centerYAnchor.constraint(equalTo: magic8BallSubView.centerYAnchor).isActive = true
+        magicAnswerLabel.widthAnchor.constraint(equalToConstant: magicAnswerLabel.frame.width).isActive = true
+        magicAnswerLabel.heightAnchor.constraint(equalToConstant: magicAnswerLabel.frame.height).isActive = true
+        magicAnswerLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        AddTheHat()
     }
     
-    //MARK: STEP 11 - Should setup Add The Hat To The Scene
-    func shouldAddTheHat() {
+    func AddTheHat()
+    {
+        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: 250, height: 250))
+        magicHatLabel = UILabel(frame: frame)
+        magicHatLabel.text = magicianHat
+        magicHatLabel.font = UIFont.systemFont(ofSize: 200)
+
+        view.addSubview(magicHatLabel)
         
+        magicHatLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 25).isActive = true
+        magicHatLabel.bottomAnchor.constraint(equalTo: magic8BallSubView.topAnchor, constant: 25).isActive = true
+        magicHatLabel.widthAnchor.constraint(equalToConstant: magicHatLabel.frame.width).isActive = true
+        magicHatLabel.heightAnchor.constraint(equalToConstant: magicHatLabel.frame.height).isActive = true
+        magicHatLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     //MARK:  STEP 14 - Detect Device Motion
